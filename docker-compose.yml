@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  api:
+    build: ./api
+    depends_on:
+      - db
+    environment:
+      MIX_ENV: dev
+    env_file:
+      - .env
+    ports:
+      - '4001:4001'
+    volumes:
+      - ./api:/app
+
+  web:
+    build: ./web
+    depends_on:
+      - api
+    environment:
+      MIX_ENV: dev
+    env_file:
+      - .env
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./web:/app
+
+  db:
+    image: postgres:11-alpine@sha256:077793cc0ed31fd0568ce468d85d0843b8dea37c9ef74eb81b4ccf0fe9539e2e
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} 
+       
+volumes:
+  pgdata:
+
