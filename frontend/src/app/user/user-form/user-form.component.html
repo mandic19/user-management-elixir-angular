@@ -10,22 +10,22 @@
     </div>
     <div class="col-lg-6 mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" formControlName="email" required>
+      <input type="email" class="form-control" id="email" formControlName="email">
     </div>
     <div class="col-lg-6 mb-3">
       <label for="status" class="form-label">Status</label>
-      <select id="status" class="form-select" formControlName="status" required>
+      <select id="status" class="form-select" formControlName="status">
         <option value="active">Active</option>
         <option value="inactive">Inactive</option>
       </select>
     </div>
     <div class="col-lg-6 mb-3" *ngIf="isNewRecord">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" formControlName="username" required>
+      <input type="text" class="form-control" id="username" formControlName="username">
     </div>
     <div class="col-lg-6 mb-3" *ngIf="isNewRecord">
       <label for="email" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" formControlName="password" required min="3" max="16">
+      <input type="password" class="form-control" id="password" formControlName="password">
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

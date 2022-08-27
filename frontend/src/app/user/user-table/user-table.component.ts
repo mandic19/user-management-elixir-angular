@@ -3,7 +3,6 @@ import {UserService} from "../services/user.service";
 import {Subject, Subscription} from "rxjs";
 import {IUser} from "../user";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
-import {UserStatusHelper} from "../helpers/user-status-helper";
 
 @Component({
   selector: 'ecm-user-table',
