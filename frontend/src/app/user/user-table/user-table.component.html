@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-8">
+    <button class="btn btn-success me-2 px-5" [routerLink]="['/users/create']">Create User</button>
+  </div>
+  <div class="col-4">
+    <div class="form-group">
+      <input type="email"
+             class="form-control mb-4"
+             id="search-text"
+             aria-describedby="search-text"
+             [(ngModel)]="searchInput" placeholder="Search"
+             (ngModelChange)="this.searchInputUpdate.next($event)"
+             autofocus>
+    </div>
+  </div>
+</div>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col" (click)="toggleSort('id')">ID</th>
+    <th scope="col" (click)="toggleSort('first_name')">First Name</th>
+    <th scope="col" (click)="toggleSort('last_name')">Last Name</th>
+    <th scope="col" (click)="toggleSort('username')">Username</th>
+    <th scope="col" (click)="toggleSort('email')">Email</th>
+    <th scope="col" (click)="toggleSort('status')">Status</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.id}}</td>
+    <td>{{user.first_name}}</td>
+    <td>{{user.last_name}}</td>
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.status}}</td>
+    <td class="text-end">
+      <button class="btn btn-primary btn-sm me-2" [routerLink]="['/users/' + user.id + '/permissions']">Permissions</button>
+      <button class="btn btn-secondary btn-sm me-2" [routerLink]="['/users/' + user.id]">Update</button>
+      <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="7">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary" (click)="setPageNumber(1)">
+            <i class="fa fa-angle-double-left"></i>
+          </button>
+          <button type="button" class="btn btn-primary" (click)="setPageNumber(page_number - 1)">
+            <i class="fa fa-angle-left"></i>
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{page_number}}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="setPageNumber(page_number + 1)">
+            <i class="fa fa-angle-right"></i>
+          </button>
+          <button type="button" class="btn btn-primary" (click)="setPageNumber(total_pages)">
+            <i class="fa fa-angle-double-right"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>

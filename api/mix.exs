@@ -50,7 +50,8 @@ defmodule Api.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:policy_wonk, "~> 1.0.0"},
-      {:pbkdf2_elixir, "~> 1.4.0"}
+      {:pbkdf2_elixir, "~> 1.4.0"},
+      {:cors_plug, "~> 3.0"},
     ]
   end
 

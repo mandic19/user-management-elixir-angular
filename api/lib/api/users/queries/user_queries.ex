@@ -69,6 +69,9 @@ defmodule Api.Users.Queries.UserQueries do
 
   defp query_by(query, _params), do: query
 
+  defp sort_by(query, %{"sort" => "id"}, preload),
+    do: from(q in subquery(query), order_by: [asc: q.id], preload: ^preload)
+
   defp sort_by(query, %{"sort" => "first_name"}, preload),
     do: from(q in subquery(query), order_by: [asc: q.first_name], preload: ^preload)
 

@@ -1,0 +1,13 @@
+<div class="container">
+  <h3 class="mb-3">
+    User Permissions: {{user.first_name}} {{user.last_name}}
+  </h3>
+  <div *ngFor="let permission of permissions; let i=index" class="col-md-12">
+    <label>
+      <input type="checkbox" [value]="permission.id" (change)="onCheckChange($event)"
+             [checked]="selectedPermissionIds.includes(permission.id)">
+      {{permission.code | titlecase}} ({{permission.description}})
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3" (click)="onSubmit()">Submit</button>
+</div>

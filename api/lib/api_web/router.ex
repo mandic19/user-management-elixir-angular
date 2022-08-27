@@ -1,6 +1,7 @@
 defmodule ApiWeb.Router do
   use ApiWeb, :router
 
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -12,6 +13,7 @@ defmodule ApiWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug
   end
 
   scope "/api" do
@@ -20,6 +22,9 @@ defmodule ApiWeb.Router do
     resources "/permissions", ApiWeb.Users.PermissionController, only: [:index]
 
     resources "/users", ApiWeb.Users.UserController
+
+    options   "/users", ApiWeb.Users.UserController, :options
+    options   "/uusers/:id", ApiWeb.Users.UserController, :options
 
     put "/users/:id/permissions", ApiWeb.Users.UserController, :update_permissions
   end
