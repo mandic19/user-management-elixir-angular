@@ -23,19 +23,28 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.userId = this.activatedRoute.snapshot.paramMap.get('id');
     this.isNewRecord = this.userId === null;
 
-   this.userForm = this.formBuilder.group({
-      id: null,
+    let controlsConfig = {
       first_name: '',
       last_name: '',
       email: ['', [Validators.required, Validators.email]],
       status: ['', [Validators.required]],
-      username: ['', [Validators.required]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(16)
-      ]],
-    });
+    };
+
+    if (this.isNewRecord) {
+      controlsConfig = {
+        ...controlsConfig, ...{
+          id: null,
+          username: ['', [Validators.required]],
+          password: ['', [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(16)
+          ]],
+        }
+      };
+    }
+    
+    this.userForm = this.formBuilder.group(controlsConfig);
 
     if (!this.isNewRecord) {
       this.sub = this.userService.getUser(this.userId).subscribe({
@@ -73,7 +82,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.isSubmitted = true;
 
-    if(this.userForm.invalid) {
+    if (this.userForm.invalid) {
       return;
     }
 
