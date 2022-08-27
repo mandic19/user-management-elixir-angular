@@ -73,9 +73,23 @@ defmodule Api.Users.Resolvers.UserResolvers do
     |> format_results!()
   end
 
+  def update_permissions(%User{} = user, params \\ %{}) do
+    user
+    |> UM.update_permissions_multi(params)
+    |> Repo.transaction()
+
+    params = %{"id" => user.id}
+
+    params
+    |> find_user([:permissions])
+  end
+
   defp format_results(result, preload \\ [])
 
   defp format_results({:ok, %User{} = user}, preload),
+    do: {:ok, Repo.preload(user, preload)}
+
+  defp format_results({:ok, %{permission: %User{} = user}}, preload),
     do: {:ok, Repo.preload(user, preload)}
 
   defp format_results(
@@ -83,6 +97,7 @@ defmodule Api.Users.Resolvers.UserResolvers do
          _preload
        ),
        do: {:error, changeset}
+
 
   defp format_results!(result, preload \\ [])
 

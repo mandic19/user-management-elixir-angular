@@ -6,7 +6,7 @@ defmodule ApiWeb.Users.UserController do
 
   action_fallback ApiWeb.FallbackController
 
-  plug(Loaders, :user when action in [:show, :update, :delete])
+  plug(Loaders, :user when action in [:show, :update, :delete, :update_permissions])
 
   def index(conn, params) do
     with {:ok, %Api.Paginator{
@@ -55,4 +55,24 @@ defmodule ApiWeb.Users.UserController do
       {:error, error} -> {:error, error}
     end
   end
+
+  def update_permissions(%{assigns: %{user: user}} = conn, %{"permission_ids" => permission_ids}) do
+    params = %{permission_ids: permission_ids}
+
+    with {:ok, %User{} = user} <- Users.update_permissions(user, params) do
+      render(conn, "show.json", user: user)
+    end
+  end
+
+  def update_permissions(%{assigns: %{user: user}} = conn, %{"permission_ids" => permission_ids})
+    when is_list(permission_ids) do
+
+    params = %{permission_ids: permission_ids}
+
+    with {:ok, %User{} = user} <- Users.update_permissions(user, params) do
+      render(conn, "show.json", user: user)
+    end
+  end
+
+  def update_permissions(_conn, _params), do: {:error, :invalid_params}
 end

@@ -9,4 +9,5 @@ defmodule Api.Users do
     defdelegate update_user!(user, params \\ %{}), to: UR
     defdelegate delete_user(user, params \\ %{}), to: UR
     defdelegate delete_user!(user, params \\ %{}), to: UR
+    defdelegate update_permissions(user, params \\ %{}), to: UR
 end

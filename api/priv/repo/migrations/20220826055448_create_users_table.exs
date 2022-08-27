@@ -10,7 +10,6 @@ defmodule Api.Repo.Migrations.CreateUsersTable do
       add :email, :string, size: 64, null: false
       add :status, :string
 
-      add(:deleted_at, :timestamptz)
       timestamps(type: :timestamptz)
     end
   end

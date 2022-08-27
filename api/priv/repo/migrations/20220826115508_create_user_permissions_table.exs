@@ -5,7 +5,7 @@ defmodule Api.Repo.Migrations.CreateUserPermissionsTable do
     create table(:users_permissions) do
       add :permission_id, references(:permissions, on_delete: :delete_all), null: false
       add :user_id, references(:users, on_delete: :delete_all), null: false
-      
+
       add(:deleted_at, :timestamptz)
       timestamps(type: :timestamptz)
     end

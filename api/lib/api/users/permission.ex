@@ -6,6 +6,7 @@ defmodule Api.Users.Permission do
   alias Api.Users.UserPermission
 
   @derive {Jason.Encoder, only: [
+    :id,
     :code,
     :description
   ]}
