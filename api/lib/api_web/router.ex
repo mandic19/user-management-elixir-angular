@@ -23,9 +23,6 @@ defmodule ApiWeb.Router do
 
     resources "/users", ApiWeb.Users.UserController
 
-    options   "/users", ApiWeb.Users.UserController, :options
-    options   "/uusers/:id", ApiWeb.Users.UserController, :options
-
     put "/users/:id/permissions", ApiWeb.Users.UserController, :update_permissions
   end
 end
