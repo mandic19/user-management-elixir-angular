@@ -10,3 +10,4 @@ To start your App:
   * Go to frontend root `cd frontend`
   * Run `npm install`
   * Start Angular app `ng serve`
+  * Go to http://localhost:4200 and start working
