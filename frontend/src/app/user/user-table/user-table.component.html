@@ -1,29 +1,35 @@
 <div class="row">
   <div class="col-8">
-    <button class="btn btn-success me-2 px-5" [routerLink]="['/users/create']">Create User</button>
+    <button
+      class="btn btn-primary me-2 px-4"
+      [routerLink]="['/users/create']"
+    >
+      <i class="fa fa-user me-2"></i>
+      Create User
+    </button>
   </div>
   <div class="col-4">
     <div class="form-group">
-      <input type="email"
+      <input id="search-text"
+             type="email"
              class="form-control mb-4"
-             id="search-text"
              aria-describedby="search-text"
              [(ngModel)]="searchInput" placeholder="Search"
              (ngModelChange)="this.searchInputUpdate.next($event)"
-             autofocus>
+      >
     </div>
   </div>
 </div>
 <table class="table">
   <thead>
   <tr>
-    <th scope="col" (click)="toggleSort('id')">ID</th>
-    <th scope="col" (click)="toggleSort('first_name')">First Name</th>
-    <th scope="col" (click)="toggleSort('last_name')">Last Name</th>
-    <th scope="col" (click)="toggleSort('username')">Username</th>
-    <th scope="col" (click)="toggleSort('email')">Email</th>
-    <th scope="col" (click)="toggleSort('status')">Status</th>
-    <th scope="col"></th>
+    <th *ngFor="let tableColumn of TABLE_COLUMNS"
+        (click)="toggleSort(tableColumn.key)"
+    >
+      {{tableColumn.label}}
+      <i [classList]="getSortIconClassList(tableColumn.key)"></i>
+    </th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -35,33 +41,49 @@
     <td>{{user.email}}</td>
     <td>{{user.status}}</td>
     <td class="text-end">
-      <button class="btn btn-primary btn-sm me-2" [routerLink]="['/users/' + user.id + '/permissions']">Permissions</button>
-      <button class="btn btn-secondary btn-sm me-2" [routerLink]="['/users/' + user.id]">Update</button>
-      <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete</button>
+      <button
+        class="btn btn-sm btn-primary btn-just-icon me-2"
+        [routerLink]="['/users/' + user.id + '/permissions']"
+        title="Permissions"
+      >
+        <i class="fa fa-key"></i>
+      </button>
+      <button class="btn btn-sm btn-secondary btn-just-icon me-2"
+              [routerLink]="['/users/' + user.id]"
+              title="Update"
+      >
+        <i class="fa fa-wrench"></i>
+      </button>
+      <button class="btn btn-sm btn-danger btn-just-icon"
+              (click)="deleteUser(user.id)"
+              title="Delete"
+      >
+        <i class="fa fa-trash"></i>
+      </button>
     </td>
   </tr>
   </tbody>
   <tfoot>
-    <tr>
-      <td colspan="7">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-primary" (click)="setPageNumber(1)">
-            <i class="fa fa-angle-double-left"></i>
-          </button>
-          <button type="button" class="btn btn-primary" (click)="setPageNumber(page_number - 1)">
-            <i class="fa fa-angle-left"></i>
-          </button>
-          <button type="button" class="btn btn-primary">
-            {{page_number}}
-          </button>
-          <button type="button" class="btn btn-primary" (click)="setPageNumber(page_number + 1)">
-            <i class="fa fa-angle-right"></i>
-          </button>
-          <button type="button" class="btn btn-primary" (click)="setPageNumber(total_pages)">
-            <i class="fa fa-angle-double-right"></i>
-          </button>
-        </div>
-      </td>
-    </tr>
+  <tr>
+    <td colspan="7" class="px-0 py-3 text-end">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" (click)="setPageNumber(1)">
+          <i class="fa fa-angle-double-left"></i>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="setPageNumber(pageNumber - 1)">
+          <i class="fa fa-angle-left"></i>
+        </button>
+        <button type="button" class="btn btn-primary">
+          {{pageNumber}}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="setPageNumber(pageNumber + 1)">
+          <i class="fa fa-angle-right"></i>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="setPageNumber(totalPages)">
+          <i class="fa fa-angle-double-right"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
   </tfoot>
 </table>

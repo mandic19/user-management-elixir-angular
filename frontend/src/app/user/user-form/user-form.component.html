@@ -10,23 +10,73 @@
     </div>
     <div class="col-lg-6 mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" formControlName="email">
+      <input type="email" class="form-control" id="email" formControlName="email"
+             [ngClass]="{'is-invalid': isInvalidField('email')}">
+      <span class="invalid-feedback">
+        <span *ngIf="userForm.get('email').errors?.required">
+          Email field is required !
+        </span>
+        <span *ngIf="userForm.get('email').errors?.email">
+          Email format is invalid !
+        </span>
+      </span>
     </div>
     <div class="col-lg-6 mb-3">
       <label for="status" class="form-label">Status</label>
-      <select id="status" class="form-select" formControlName="status">
+      <select id="status"
+              class="form-select"
+              formControlName="status"
+              [ngClass]="{'is-invalid': isInvalidField('status')}"
+      >
         <option value="active">Active</option>
         <option value="inactive">Inactive</option>
       </select>
+      <span class="invalid-feedback">
+        <span *ngIf="userForm.get('status').errors?.required">
+          Status field is required !
+        </span>
+      </span>
     </div>
     <div class="col-lg-6 mb-3" *ngIf="isNewRecord">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" formControlName="username">
+      <input type="text"
+             class="form-control"
+             id="username"
+             formControlName="username"
+             [ngClass]="{'is-invalid': isInvalidField('username')}"
+      >
+      <span class="invalid-feedback">
+        <span *ngIf="userForm.get('username').errors?.required">
+          Username field is required !
+        </span>
+      </span>
     </div>
     <div class="col-lg-6 mb-3" *ngIf="isNewRecord">
       <label for="email" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" formControlName="password">
+      <input type="password"
+             class="form-control"
+             id="password"
+             formControlName="password"
+             [ngClass]="{'is-invalid': isInvalidField('password')}"
+      >
+      <span class="invalid-feedback">
+        <span *ngIf="userForm.get('password').errors?.required">
+          Password field is required !
+        </span>
+        <span *ngIf="userForm.get('password').errors?.minlength">
+          Password must have at least 3 characters !
+        </span>
+        <span *ngIf="userForm.get('password').errors?.maxlength">
+          Password must not exceed 16 characters !
+        </span>
+      </span>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="button"
+          class="btn btn-secondary ms-2"
+          [routerLink]="['/']"
+  >
+    Cancel
+  </button>
 </form>

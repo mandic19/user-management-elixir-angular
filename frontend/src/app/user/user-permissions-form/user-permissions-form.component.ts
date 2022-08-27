@@ -13,7 +13,7 @@ import {IPermission} from "../../permission/permission";
   styleUrls: ['./user-permissions-form.component.css']
 })
 
-export class UserPermissionsFormComponent implements OnInit {
+export class UserPermissionsFormComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   user: IUser;
   permissions: IPermission[];
@@ -37,6 +37,10 @@ export class UserPermissionsFormComponent implements OnInit {
       },
       error: err => this.handleError(err)
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
   handleError(err): void {

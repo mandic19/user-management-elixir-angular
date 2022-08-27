@@ -9,5 +9,4 @@ import {Subscription} from 'rxjs';
 
 export class AppComponent {
   title = 'User Management System';
-  sub!: Subscription;
 }
